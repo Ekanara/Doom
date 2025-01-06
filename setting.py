@@ -1,5 +1,5 @@
 # game settings
-RES = HEIGHT, WIDTH = 900, 600
+RES = HEIGHT, WIDTH = 1200, 900
 FPS = 60
 
 PLAYER_POS = 1.5, 5 # mini_map

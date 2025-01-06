@@ -28,21 +28,29 @@ class Player:
             dy += -speed_sin
         
         if keys[pg.K_a]: # Nhấn A (K_a)
-            dx += -speed_cos
-            dy += speed_sin
+            dx += speed_sin
+            dy += -speed_cos
 
         if keys[pg.K_d]: # Nhấn D (K_d)
-            dx += speed_cos
-            dy += -speed_sin
+            dx += -speed_sin
+            dy += speed_cos
 
-        self.x += dx
-        self.y += dy
+        self.check_wall_collision(dx, dy)
         
         if keys[pg.K_LEFT]:
             self.angle -= PLAYER_ROT_SPEED * self.game.delta_time
         if keys[pg.K_RIGHT]:
             self.angle += PLAYER_ROT_SPEED * self.game.delta_time
         self.angle %= math.tau # tau = 2*pi
+
+    def check_wall(self, x, y):
+        return(x, y) not in self.game.map.world_map
+    
+    def check_wall_collision(self, dx, dy):
+        if self.check_wall(int(self.x + dx), int(self.y)):
+            self.x += dx
+        if self.check_wall(int(self.x), int(self.y + dy)):
+            self.y += dy
 
     def draw(self):
         pg.draw.line(surface = self.game.screen, 
